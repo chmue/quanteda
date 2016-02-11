@@ -1,7 +1,7 @@
 # @rdname dictionary
 # @export 
 # NEED TO ADD A VALIDATOR
-setClass("dictionary", contains = "list")
+setClass("dictionary", contains = "namedList")
 
 #' print a dictionary object
 #' 
@@ -84,7 +84,7 @@ dictionary <- function(x = NULL, file = NULL, format = NULL, toLower = TRUE, enc
             x <- readLIWCdict(file, toLower = toLower, encoding = encoding)
     }
     
-    new("dictionary", x)
+    new("dictionary", x, names = names(x))
 }
 
 
