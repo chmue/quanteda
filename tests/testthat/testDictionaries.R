@@ -1,3 +1,15 @@
+library(quanteda)
+
+context("functions related to dictionaries")
+
+test_that("dictionary() throws errors", {
+    expect_error(dictionary(), "You must supply either x or file.")
+    expect_error(dictionary(list("abc")), "Dictionaries must be named lists.")
+    expect_error(dictionary(list("a" = "b", "c")), "Dictionaries must be named lists.")
+    # expect_error(dictionary(list("a" = list("abc"))), "Dictionaries must be named lists or lists of nameds lists.")
+    expect_error(dictionary(file = "abc"), "You must specify a format for file abc")
+    expect_error(dictionary(file = "abc", format = "no"))
+})
 
 # require(quanteda)
 # tmpdic2007 <- dictionary(file="~/Dropbox/QUANTESS/dictionaries/LIWC/LIWC2007_English080730.dic", format='LIWC')
