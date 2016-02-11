@@ -68,7 +68,9 @@ setMethod("show", "dictionary",
 #' head(dfm(inaugTexts, dictionary = mfdict))}
 #' @export
 dictionary <- function(x = NULL, file = NULL, format = NULL, toLower = TRUE, encoding = "") {
-    if (!is.null(x) & !is.list(x))
+    if (is.null(x) & is.null(file))
+        stop("You must supply either x or file.")
+    if (!is.null(x) & (!is.list(x) | is.null(names(x)) | any(names(x) == '')))
         stop("Dictionaries must be named lists.")
     x <- flatten.dictionary(x)
     if (!is.null(x) & !is.list(x))
@@ -76,7 +78,7 @@ dictionary <- function(x = NULL, file = NULL, format = NULL, toLower = TRUE, enc
     
     if (!is.null(file)) {
         if (is.null(format))
-            stop("You must specify a format for file", file)
+            stop("You must specify a format for file ", file)
         format <- match.arg(format, c("wordstat", "LIWC"))
         if (format=="wordstat") 
             x <- readWStatDict(file, enc = encoding, toLower = toLower)
